@@ -1,14 +1,15 @@
-# Module 1: Climate
+# Module 3: Drought
 
 ## Team members and contributions
 To be updated
 
 ## Learning objectives
 
- - Describe the unit of a data science project (1 GitHub repository = 1 RStudio project) and why we use it
- - Understand the calculations made in Lewandowsky et al. 2016 and reproduce them
- - Build basic plots to assess change in climate variables through time
- - Evaluate and interpret the meaning of trends and variability
+ - Explore data repository "in the wild" and evaluate wrt FAIR principles and as a research compendium
+ - Replicate basic analyses and plots
+ - Test the inverse texture hypothesis
+ - Apply a linear mixed-effects model
+ - Practice model selection and evaluation
  
 ## Rubric
 
