@@ -190,9 +190,21 @@ Replicate the simple linear regression in Fig. 4.
 
 ```{r}
 
+fig_4_model = lm(data = data_all, DR ~ DS)
+
+summary(fig_4_model)
+
+fig_4_mod_fig3predictors = lm(data = data_all, DR ~ MAP + prev_precip + MAP_cv + lnAridity + sand_mean + gram_prop + rich_mean)
+
+summary(fig_4_mod_fig3predictors)
+
 ```
 
 How much variation in drought response is explained by drought severity? How does this compare to the coefficient of determination (R\^2) of the predictors in Fig. 3?
+
+
+The multiple R^2 value of .06824 indicates roughly 7% of the variation in drought response can be explained by the drought severity. Using all of the predictors from fig. 3, we can explain about 17% of the variability in drought response ( multiple R^2 = .1691 ), however this model is not significant ( P = .3623 ) so it does not seem worthwhile to do so. Furthermore, using the 7 predictors together decreases the explanatory power of the model ( adjusted R^2 = .0199 ).
+
 
 ### Q7 (1 point)
 
