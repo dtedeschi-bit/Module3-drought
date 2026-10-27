@@ -172,10 +172,15 @@ library(lme4)
 library(lmerTest)
 
 
-
+inv_text_lmer = lmer(data = data_all, DR ~ MAP + sand_mean + (1|site_code))
 
 
 ```
+
+In the supporting information, they use the "site" variable as the random effect. However here I am unable to use site as the random effect because each unique site represents an observation in the data frame, meaning for lmer, the number of levels in site_code is not less than the number of observations.
+
+
+
 
 ## Importance of drought severity (Fig. 4)
 
