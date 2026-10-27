@@ -92,11 +92,15 @@ data_all <- read_csv("data/data.hab.csv") |>
 From the published R code, it appears that Fig. 3 was made in separate pieces. Recreate the figure to the best of your ability with a single code chunk, using `facet_wrap()`.
 
 ```{r}
+#| echo: true
 
 #view(data_all)
 
 
-data_all_longer = pivot_longer(data = data_all, cols = MAP:rich_mean, names_to = "metric_type", values_to = "metric_per_se")
+data_all_longer = pivot_longer(data = data_all, 
+                               cols = MAP:rich_mean, 
+                               names_to = "metric_type",
+                               values_to = "metric_per_se")
 
 view(data_all_longer)
 
@@ -114,7 +118,10 @@ data_all_longer |>
                                 "Grassland_NotExtreme"="Grassland, nominal",
                                 "Shrubland_Extr"="Shrubland, extreme",
                                 "Shrubland_NotExtreme"="Shrubland, nominal"),
-                     values=c("mediumseagreen","mediumseagreen","rosybrown4","rosybrown4"))+
+                     values=c("mediumseagreen",
+                              "mediumseagreen",
+                              "rosybrown4",
+                              "rosybrown4"))+
   scale_shape_manual(name="IDE Sites (n=100)",
                      labels = c("Grassland_Extr"="Grassland, extreme",
                                 "Grassland_NotExtreme"="Grassland, nominal",
@@ -126,13 +133,13 @@ data_all_longer |>
   facet_wrap(~metric_type,
              scales = "free_x", 
              ncol = 2, 
-             labeller = as_labeller(c("gram_prop"="Proportion of Graminoids" , 
-                                                                     "lnAridity"="Ln(Aridity Index)",
-                                                                      "MAP"="MAP (mm)",
-                                                                      "MAP_cv"="CV of MAP (%)",
-                                                                    "prev_precip"="Previous Years' Precipitation (mm)",
-                                                                      "rich_mean"="Average Richness",
-                                                                     "sand_mean"="Sand in Soil (%)" )))+ 
+             labeller = as_labeller(c("gram_prop"="Proportion of Graminoids",
+                                      "lnAridity"="Ln(Aridity Index)",
+                                      "MAP"="MAP (mm)",
+                                      "MAP_cv"="CV of MAP (%)",
+                                      "prev_precip"="Previous Years' Precipitation (mm)",
+                                      "rich_mean"="Average Richness",
+                                      "sand_mean"="Sand in Soil (%)" )))+ 
   labs(x = "Metric Type", y = "Drought Severity")
 
 
@@ -187,7 +194,14 @@ fig_4_model = lm(data = data_all, DR ~ DS)
 
 summary(fig_4_model)
 
-fig_4_mod_fig3predictors = lm(data = data_all, DR ~ MAP + prev_precip + MAP_cv + lnAridity + sand_mean + gram_prop + rich_mean)
+fig_4_mod_fig3predictors = lm(data = data_all,
+                              DR ~ MAP + 
+                                prev_precip +
+                                MAP_cv + 
+                                lnAridity +
+                                sand_mean + 
+                                gram_prop +
+                                rich_mean)
 
 summary(fig_4_mod_fig3predictors)
 
@@ -206,7 +220,13 @@ In the supplemental Table S8, Smith et al. 2024 show the output of a multiple re
 ```{r}
 
 
-s8_model = lm(data = data_all, DR ~ MAP + MAP_cv + gram_prop + sand_mean + prev_precip + DS)
+s8_model = lm(data = data_all,
+              DR ~ MAP +
+                MAP_cv +
+                gram_prop + 
+                sand_mean +
+                prev_precip 
+              + DS)
 
 summary(s8_model)
 
@@ -226,7 +246,13 @@ One common consideration in multiple regression is multicollinearity of the pred
 
 ```{r}
 
-pairs( DR ~ MAP + MAP_cv + gram_prop + sand_mean + prev_precip + DS, data = data_all )
+pairs( DR ~ MAP + 
+         MAP_cv +
+         gram_prop +
+         sand_mean + 
+         prev_precip + 
+         DS, 
+       ata = data_all )
 
 
 ```
@@ -254,25 +280,45 @@ Note that model comparison can only be done on the same response data, so you ma
 
 ```{r}
 
-s8_model = lm(data = data_all, DR ~ MAP + MAP_cv + gram_prop + sand_mean + prev_precip + DS)
+s8_model = lm(data = data_all, 
+              DR ~ MAP + 
+                MAP_cv + 
+                gram_prop + 
+                sand_mean + 
+                prev_precip + 
+                DS)
 summary(s8_model)
 AIC(s8_model)
 
-s8_no_MAP = lm(data = data_all, DR ~ MAP_cv + gram_prop + sand_mean + prev_precip + DS)
+s8_no_MAP = lm(data = data_all,
+               DR ~ MAP_cv +
+                 gram_prop + 
+                 sand_mean + 
+                 prev_precip +
+                 DS)
 summary(s8_no_MAP)
 AIC(s8_no_MAP)
 
-s8_no_MAP_MAPcv = lm(data = data_all, DR ~ gram_prop + sand_mean + prev_precip + DS)
+s8_no_MAP_MAPcv = lm(data = data_all,
+                     DR ~ gram_prop + 
+                       sand_mean +
+                       prev_precip + 
+                       DS)
 summary(s8_no_MAP_MAPcv)
 AIC(s8_no_MAP_MAPcv)
 
-s8_no_MAP_MAPcv_sandmean = lm(data = data_all, DR ~ gram_prop + prev_precip + DS)
+s8_no_MAP_MAPcv_sandmean = lm(data = data_all,
+                              DR ~ gram_prop +
+                                prev_precip +
+                                DS)
 summary(s8_no_MAP_MAPcv_sandmean)
 AIC(s8_no_MAP_MAPcv_sandmean)
 
 
 
-s8_no_MAP_MAPcv_sandmean_gramprop = lm(data = data_all, DR ~ prev_precip + DS)
+s8_no_MAP_MAPcv_sandmean_gramprop = lm(data = data_all,
+                                       DR ~ prev_precip +
+                                         DS)
 summary(s8_no_MAP_MAPcv_sandmean_gramprop)
 AIC(s8_no_MAP_MAPcv_sandmean_gramprop)
 
@@ -281,7 +327,13 @@ AIC(s8_no_MAP_MAPcv_sandmean_gramprop)
 
 #let's compare this to the Smith et al. model :
 
-smith_model = lm(data = data_all, DR ~ DS + MAP + prev_precip + MAP_cv + sand_mean + gram_prop)
+smith_model = lm(data = data_all, 
+                 DR ~ DS +
+                   MAP +
+                   prev_precip +
+                   MAP_cv + 
+                   sand_mean +
+                   gram_prop)
 AIC(smith_model)
 
 ```
