@@ -1,7 +1,7 @@
 # Module 3: Drought
 
 ## Team members and contributions
-To be updated
+Dante Tedeschi, only contributor
 
 ## Learning objectives
 
