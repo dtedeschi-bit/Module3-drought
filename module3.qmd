@@ -27,6 +27,8 @@ Reusability: I'm pretty sure there's enough metadata since I can understand the 
 
 A single R script has been provided for this paper. Read through this file (running it is optional). Evaluate the strengths and weaknesses of this code repository in light of your understanding of research compendia.
 
+All of the packages needed and each data table are loaded into this one R script where all data wrangling and plotting occurs. Most of the code is labeled with comments providing justification for / explanation of what was written, however for the purposes of replication, the fact that everything is included in one script makes it difficult to zero in on a singular operation of interest. Furthermore, if this repository were any larger, having to load every table and package every time would greatly slow down analysis, especially if you're concerned about, again, an individual element of the data / code. Having said this, having as few locations for code as possible makes it easier for the human to do file management.  
+
 ## Wrangling data
 
 Since the goal of this exercise is to use linear regression and practice plotting, I have provided the code below for wrangling the data into a single dataframe:
