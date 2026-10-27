@@ -214,9 +214,16 @@ In the supplemental Table S8, Smith et al. 2024 show the output of a multiple re
 
 ```{r}
 
+
+s8_model = lm(data = data_all, DR ~ MAP + MAP_cv + gram_prop + sand_mean + prev_precip + DS)
+
+summary(s8_model)
+
 ```
 
 How much more variation in drought response is predicted by this ensemble of predictor variables?
+
+Compared to just using drought severity as a predictor, using these 6 predictors accounts for 10 more percentage points of variation ( R^2 = .1682 vs .06824 ).
 
 Which variable does the heavy lifting, and how does this compare to the results of the simple linear regression?
 
