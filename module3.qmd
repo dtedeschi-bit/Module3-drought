@@ -95,6 +95,50 @@ From the published R code, it appears that Fig. 3 was made in separate pieces. R
 
 ```{r}
 
+#view(data_all)
+
+
+data_all_longer = pivot_longer(data = data_all, cols = MAP:rich_mean, names_to = "metric_type", values_to = "metric_per_se")
+
+view(data_all_longer)
+
+
+# aesthetics code ( shape, color ) copied from the R script they used to generate Fig. 3
+
+data_all_longer |> 
+  ggplot(aes(x = metric_per_se, y = DS)) +
+  geom_hline(yintercept=0,lty=2,size=1)+
+  geom_point(aes(shape=Eco.Extr,
+                 color=Eco.Extr),
+             size=3)+
+  scale_color_manual(name="IDE Sites (n=100)",
+                     labels = c("Grassland_Extr"="Grassland, extreme",
+                                "Grassland_NotExtreme"="Grassland, nominal",
+                                "Shrubland_Extr"="Shrubland, extreme",
+                                "Shrubland_NotExtreme"="Shrubland, nominal"),
+                     values=c("mediumseagreen","mediumseagreen","rosybrown4","rosybrown4"))+
+  scale_shape_manual(name="IDE Sites (n=100)",
+                     labels = c("Grassland_Extr"="Grassland, extreme",
+                                "Grassland_NotExtreme"="Grassland, nominal",
+                                "Shrubland_Extr"="Shrubland, extreme",
+                                "Shrubland_NotExtreme"="Shrubland, nominal"),
+                     values=c(19,21,17,24))+
+  geom_point() + 
+  theme_classic() + 
+  facet_wrap(~metric_type,
+             scales = "free_x", 
+             ncol = 2, 
+             labeller = as_labeller(c("gram_prop"="Proportion of Graminoids" , 
+                                                                     "lnAridity"="Ln(Aridity Index)",
+                                                                      "MAP"="MAP (mm)",
+                                                                      "MAP_cv"="CV of MAP (%)",
+                                                                    "prev_precip"="Previous Years' Precipitation (mm)",
+                                                                      "rich_mean"="Average Richness",
+                                                                     "sand_mean"="Sand in Soil (%)" )))+ 
+  labs(x = "Metric Type", y = "Drought Severity")
+
+
+
 ```
 
 ## Testing the Inverse Texture hypothesis
