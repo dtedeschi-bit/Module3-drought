@@ -145,13 +145,23 @@ data_all_longer |>
 
 See Prof. Guo's slides on the inverse texture hypothesis. Under this hypothesis, there should be a significant interaction term between which two variables?
 
+
+Inverse texture predicts productivity ( drought response ) will depend on both precipitation and the amount of sand in the soil. Therefore, there should be an interaction between MAP and sand_mean from the data_all table. 
+
 ### Q4 (1 point)
 
 Conduct a multiple regression to test the inverse texture hypothesis. Is there statistical support for this hypothesis? Write your answer as a results sentence, including appropriate statistics.
 
 ```{r}
 
+inv_text_model = lm(data = data_all, DR ~ MAP*sand_mean )
+
+summary(inv_text_model)
+
 ```
+
+Drought response ( productivity ) does not significantly vary by mean annual precipitation ( MAP ) or soil sand content ( % sand )( Analysis of variance with 3 and 92 degrees of freedom, F = 1.233, p = .2984 ).
+
 
 ### Q5 (1 point)
 
@@ -160,6 +170,10 @@ Compare your result above to the supplemental Table S7. Try using 'lme4' and lme
 ```{r}
 library(lme4)
 library(lmerTest)
+
+
+
+
 
 ```
 
