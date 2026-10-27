@@ -18,9 +18,9 @@ Findability: All tables have unique identifies and there are descriptions of wha
 
 Accessibility: Conditions for access of the data are made clear at the bottom of the README.
 
-Interoperability: All tables are in .csv format, which can easily formatted / combined with other data
+Interoperability: All tables are in .csv format, which can be easily formatted / combined with other data using most data anaylitics software.
 
-Reusability: 
+Reusability: I'm pretty sure there's enough metadata since I can understand the componenets of each table without having to check another source. The authors clearly indicate they would like to be contacted to discuss usage of their data, however I think they should provide contact information or at least provide their preferred contact route.
 
 
 ### Q2 (1 point)
