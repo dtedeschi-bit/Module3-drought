@@ -13,7 +13,6 @@ The full contents of the [Dryad repository](https://datadryad.org/dataset/doi:10
 
 The readme indicates which .csv file contains certain metrics and categories; it seems to do a pretty good job of this. As for FAIRness, let's go through them one by one:
 
-
 Findability: All tables have unique identifies and there are descriptions of what data is included in a given .csv and what each column represents. I might be interpreting "metadata" incorrectly, however as of right now the README, which includes what I think the metadata is ( context for tables, etc. ), is not in machine-readable format. It might be better to have a .csv or other kind of table / file that includes columns for the metadata and columns for the associated .csv file.
 
 Accessibility: Conditions for access of the data are made clear at the bottom of the README.
@@ -22,12 +21,11 @@ Interoperability: All tables are in .csv format, which can be easily formatted /
 
 Reusability: I'm pretty sure there's enough metadata since I can understand the componenets of each table without having to check another source. The authors clearly indicate they would like to be contacted to discuss usage of their data, however I think they should provide contact information or at least provide their preferred contact route.
 
-
 ### Q2 (1 point)
 
 A single R script has been provided for this paper. Read through this file (running it is optional). Evaluate the strengths and weaknesses of this code repository in light of your understanding of research compendia.
 
-All of the packages needed and each data table are loaded into this one R script where all data wrangling and plotting occurs. Most of the code is labeled with comments providing justification for / explanation of what was written, however for the purposes of replication, the fact that everything is included in one script makes it difficult to zero in on a singular operation of interest. Furthermore, if this repository were any larger, having to load every table and package every time would greatly slow down analysis, especially if you're concerned about, again, an individual element of the data / code. Having said this, having as few locations for code as possible makes it easier for the human to do file management.  
+All of the packages needed and each data table are loaded into this one R script where all data wrangling and plotting occurs. Most of the code is labeled with comments providing justification for / explanation of what was written, however for the purposes of replication, the fact that everything is included in one script makes it difficult to zero in on a singular operation of interest. Furthermore, if this repository were any larger, having to load every table and package every time would greatly slow down analysis, especially if you're concerned about, again, an individual element of the data / code. Having said this, having as few locations for code as possible makes it easier for the human to do file management.
 
 ## Wrangling data
 
@@ -145,8 +143,7 @@ data_all_longer |>
 
 See Prof. Guo's slides on the inverse texture hypothesis. Under this hypothesis, there should be a significant interaction term between which two variables?
 
-
-Inverse texture predicts productivity ( drought response ) will depend on both precipitation and the amount of sand in the soil. Therefore, there should be an interaction between MAP and sand_mean from the data_all table. 
+Inverse texture predicts productivity ( drought response ) will depend on both precipitation and the amount of sand in the soil. Therefore, there should be an interaction between MAP and sand_mean from the data_all table.
 
 ### Q4 (1 point)
 
@@ -162,7 +159,6 @@ summary(inv_text_model)
 
 Drought response ( productivity ) does not significantly vary by mean annual precipitation ( MAP ) or soil sand content ( % sand )( Analysis of variance with 3 and 92 degrees of freedom, F = 1.233, p = .2984 ).
 
-
 ### Q5 (1 point)
 
 Compare your result above to the supplemental Table S7. Try using 'lme4' and lmer() to replicate the results of Table S7. Were you successful? If not, what is the limiting factor?
@@ -172,15 +168,12 @@ library(lme4)
 library(lmerTest)
 
 
-inv_text_lmer = lmer(data = data_all, DR ~ MAP + sand_mean + (1|site_code))
+#inv_text_lmer = lmer(data = data_all, DR ~ MAP + sand_mean + (1|site_code))
 
 
 ```
 
 In the supporting information, they use the "site" variable as the random effect. However here I am unable to use site as the random effect because each unique site represents an observation in the data frame, meaning for lmer, the number of levels in site_code is not less than the number of observations.
-
-
-
 
 ## Importance of drought severity (Fig. 4)
 
@@ -202,9 +195,7 @@ summary(fig_4_mod_fig3predictors)
 
 How much variation in drought response is explained by drought severity? How does this compare to the coefficient of determination (R\^2) of the predictors in Fig. 3?
 
-
-The multiple R^2 value of .06824 indicates roughly 7% of the variation in drought response can be explained by the drought severity. Using all of the predictors from fig. 3, we can explain about 17% of the variability in drought response ( multiple R^2 = .1691 ), however this model is not significant ( P = .3623 ) so it does not seem worthwhile to do so. Furthermore, using the 7 predictors together decreases the explanatory power of the model ( adjusted R^2 = .0199 ).
-
+The multiple R\^2 value of .06824 indicates roughly 7% of the variation in drought response can be explained by the drought severity. Using all of the predictors from fig. 3, we can explain about 17% of the variability in drought response ( multiple R\^2 = .1691 ), however this model is not significant ( P = .3623 ) so it does not seem worthwhile to do so. Furthermore, using the 7 predictors together decreases the explanatory power of the model ( adjusted R\^2 = .0199 ).
 
 ### Q7 (1 point)
 
@@ -223,14 +214,11 @@ summary(s8_model)
 
 How much more variation in drought response is predicted by this ensemble of predictor variables?
 
-Compared to just using drought severity as a predictor, using these 6 predictors accounts for 10 more percentage points of variation ( R^2 = .1682 vs .06824 ).
-
-
+Compared to just using drought severity as a predictor, using these 6 predictors accounts for 10 more percentage points of variation ( R\^2 = .1682 vs .06824 ).
 
 Which variable does the heavy lifting, and how does this compare to the results of the simple linear regression?
 
-Drought severity is the only variable that is semi-significant ( p = .0821 ), which makes sense since in the simple regression it accounted for almost 7% of the varaiation in drought response, which is more than 1/3 of the variation explained by it and the other 5 predictors. 
-
+Drought severity is the only variable that is semi-significant ( p = .0821 ), which makes sense since in the simple regression it accounted for almost 7% of the varaiation in drought response, which is more than 1/3 of the variation explained by it and the other 5 predictors.
 
 ### Q8 (1 point)
 
@@ -243,9 +231,7 @@ pairs( DR ~ MAP + MAP_cv + gram_prop + sand_mean + prev_precip + DS, data = data
 
 ```
 
-
 None of the predictors seem highly correlated with each other, however I do notice trends between MAP and MAP_cv, MAP_cv and prev_precip, and MAP and DS, which makes sense since MAP, MAP_cv, and prev_precip most likely share data used to calculate them to some extent. MAP and drought severity also makes sense, since by definition, a drought is a period in which mean annual precipitation in a given area is lower than normal. So it is likley there is some redundancy in our model. Regardless, I think because none of the predictors exhibit close colinearity, it is beneficial to keep the variables in so as to lessen the risk of post hoc type 1 error ( see https://en.wikipedia.org/wiki/Multicollinearity#Misuse ).
-
 
 ### Q9 (2 points)
 
@@ -263,6 +249,43 @@ Try a backward selection approach (starting with the model from Q7) and sequenti
 
 Note that model comparison can only be done on the same response data, so you may have reduce your dataset in advance.
 
+
+
+
 ```{r}
 
+s8_model = lm(data = data_all, DR ~ MAP + MAP_cv + gram_prop + sand_mean + prev_precip + DS)
+summary(s8_model)
+AIC(s8_model)
+
+s8_no_MAP = lm(data = data_all, DR ~ MAP_cv + gram_prop + sand_mean + prev_precip + DS)
+summary(s8_no_MAP)
+AIC(s8_no_MAP)
+
+s8_no_MAP_MAPcv = lm(data = data_all, DR ~ gram_prop + sand_mean + prev_precip + DS)
+summary(s8_no_MAP_MAPcv)
+AIC(s8_no_MAP_MAPcv)
+
+s8_no_MAP_MAPcv_sandmean = lm(data = data_all, DR ~ gram_prop + prev_precip + DS)
+summary(s8_no_MAP_MAPcv_sandmean)
+AIC(s8_no_MAP_MAPcv_sandmean)
+
+
+
+s8_no_MAP_MAPcv_sandmean_gramprop = lm(data = data_all, DR ~ prev_precip + DS)
+summary(s8_no_MAP_MAPcv_sandmean_gramprop)
+AIC(s8_no_MAP_MAPcv_sandmean_gramprop)
+
+# so removing gram_prop greatly increases AIC --> dont remove gram_prop
+
+
+#let's compare this to the Smith et al. model :
+
+smith_model = lm(data = data_all, DR ~ DS + MAP + prev_precip + MAP_cv + sand_mean + gram_prop)
+AIC(smith_model)
+
 ```
+
+
+Smith et al. use a model mapping drought response to MAP, percent CV of MAP, sand content in soil, graminoid abundance, drought severity, and previous years' precipitation, which results in an AIC of 108.8096. By removing MAP, percent CV of MAP, and sand content, the AIC drops to 105.8254, which is the lowest I could get it before it shot up to 139 by removing graminoid abundance. So it seems like removing these three predictors produces a model that is slightly better at predicting drought response than the model used by Smith et al. 
+
